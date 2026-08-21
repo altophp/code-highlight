@@ -4,9 +4,26 @@ Alto Code Highlight follows semantic versioning for the supported entry points
 and extension contracts described here. Patch and minor releases preserve
 their documented signatures and behavior throughout the 1.x series.
 
-## Main entry point
+## Parsing
 
-`Highlighter` is the primary facade. Its supported operations are:
+`CodeParser` parses source into a `ParsedStream` without rendering it. Its
+supported operations are:
+
+- construction with an optional embedding registry and optional language list;
+- `parse()` for semantically scoped tokens;
+- `registerLanguage()` for adding or replacing a parser;
+- `getEmbeddedRegistry()` for inspecting embedding plans;
+- `setEmbeddingEnabled()` for toggling a configured host and target pair.
+
+`parse()` preserves the source supplied by the caller. Concatenating the token
+text, or calling `ParsedStream::toString()`, returns that source exactly.
+Selecting `php` parses PHP from the first byte even when the opening tag is
+omitted.
+
+## HTML rendering
+
+`Highlighter` renders the same parsed representation as escaped HTML. Its
+supported operations are:
 
 - construction with a `ThemeInterface`, optional embedding registry, and
   optional language list;
@@ -17,8 +34,7 @@ their documented signatures and behavior throughout the 1.x series.
 - `setEmbeddingEnabled()` for toggling a configured host and target pair.
 
 `HighlighterInterface` defines the portable highlighting operation for code
-that depends on an abstraction rather than the concrete facade. Selecting
-`php` parses PHP from the first byte even when the opening tag is omitted.
+that depends on an abstraction rather than the concrete facade.
 
 ## Theme extension contract
 

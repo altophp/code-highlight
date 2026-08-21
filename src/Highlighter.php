@@ -13,13 +13,8 @@ declare(strict_types=1);
 
 namespace Alto\Code\Highlight;
 
-use Alto\Code\Highlight\Embedded\EmbeddedLanguagePlan;
 use Alto\Code\Highlight\Embedded\EmbeddedLanguageRegistry;
-use Alto\Code\Highlight\Exception\LanguageNotFoundException;
-use Alto\Code\Highlight\Language\EmbeddedLanguageCapable;
-use Alto\Code\Highlight\Language\EmbeddedLanguageContext;
 use Alto\Code\Highlight\Language\LanguageInterface;
-use Alto\Code\Highlight\Language\Languages;
 use Alto\Code\Highlight\Parser\ParsedStream;
 
 /**
@@ -31,17 +26,7 @@ use Alto\Code\Highlight\Parser\ParsedStream;
  */
 final class Highlighter implements HighlighterInterface
 {
-    /**
-     * @var array<string, LanguageInterface>
-     */
-    private array $languages = [];
-
-    private EmbeddedLanguageRegistry $embeddedRegistry;
-
-    /**
-     * @var array<string, bool>
-     */
-    private array $embeddedLanguageToggles = [];
+    private CodeParser $parser;
 
     /**
      * @param list<LanguageInterface>|null $languages
@@ -51,17 +36,7 @@ final class Highlighter implements HighlighterInterface
         ?EmbeddedLanguageRegistry $embeddedRegistry = null,
         ?array $languages = null,
     ) {
-        $this->embeddedRegistry = $embeddedRegistry ?? new EmbeddedLanguageRegistry();
-
-        // Register built-in languages
-        $languages ??= Languages::getDefaultLanguages();
-        foreach ($languages as $language) {
-            if (!$language instanceof LanguageInterface) {
-                throw new \InvalidArgumentException('All languages must implement LanguageInterface.');
-            }
-
-            $this->registerLanguage($language);
-        }
+        $this->parser = new CodeParser($embeddedRegistry, $languages);
     }
 
     /**
@@ -88,11 +63,7 @@ final class Highlighter implements HighlighterInterface
             $language = 'php';
         }
 
-        // Get the language parser
-        $languageParser = $this->getLanguage($language);
-
-        // Parse the code (recursively handling embedded languages when supported)
-        $parsedStream = $this->parseWithLanguage($languageParser, $code);
+        $parsedStream = $this->parser->parse($code, $language);
 
         // Format the output
         return $this->format($parsedStream, $language, $lineNumbers, $highlightLines);
@@ -103,7 +74,7 @@ final class Highlighter implements HighlighterInterface
      */
     public function registerLanguage(LanguageInterface $language): void
     {
-        $this->languages[$language->getIdentifier()] = $language;
+        $this->parser->registerLanguage($language);
     }
 
     /**
@@ -114,54 +85,9 @@ final class Highlighter implements HighlighterInterface
         return $this->theme;
     }
 
-    /**
-     * Get a registered language parser.
-     *
-     * @throws LanguageNotFoundException
-     */
-    private function getLanguage(string $identifier): LanguageInterface
-    {
-        if (!isset($this->languages[$identifier])) {
-            throw new LanguageNotFoundException($identifier);
-        }
-
-        return $this->languages[$identifier];
-    }
-
-    /**
-     * Parse source code with the given language, handling embedded delegation when available.
-     */
-    private function parseWithLanguage(LanguageInterface $language, string $code): ParsedStream
-    {
-        if ($language instanceof EmbeddedLanguageCapable) {
-            $plan = $this->embeddedRegistry->getPlan($language->getIdentifier());
-
-            if (null !== $plan) {
-                $host = $language->getIdentifier();
-                $triggers = array_filter($plan->getTriggers(), function ($trigger) use ($host) {
-                    $key = $host . ':' . $trigger->targetLanguage;
-
-                    return $this->embeddedLanguageToggles[$key] ?? true;
-                });
-                // Create a new plan with filtered triggers
-                $plan = EmbeddedLanguagePlan::forHost($host, array_values($triggers));
-            }
-
-            $context = EmbeddedLanguageContext::fromResolver(function (string $identifier, string $embeddedCode): ParsedStream {
-                $embeddedLanguage = $this->getLanguage($identifier);
-
-                return $this->parseWithLanguage($embeddedLanguage, $embeddedCode);
-            }, $plan);
-
-            return $language->parseWithEmbedding($code, $context);
-        }
-
-        return $language->parse($code);
-    }
-
     public function getEmbeddedRegistry(): EmbeddedLanguageRegistry
     {
-        return $this->embeddedRegistry;
+        return $this->parser->getEmbeddedRegistry();
     }
 
     /**
@@ -172,7 +98,7 @@ final class Highlighter implements HighlighterInterface
      */
     public function setEmbeddingEnabled(string $host, string $target, bool $enabled): void
     {
-        $this->embeddedLanguageToggles[strtolower($host) . ':' . strtolower($target)] = $enabled;
+        $this->parser->setEmbeddingEnabled($host, $target, $enabled);
     }
 
     /**
