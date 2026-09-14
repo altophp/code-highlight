@@ -38,13 +38,13 @@
         "ext-mbstring": "*",
         "ext-tokenizer": "*"
     },
-    "suggest": {
-        "ext-simplexml": "Required by the optional TextMate theme adapter"
-    },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.94",
         "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^12.5"
+    },
+    "suggest": {
+        "ext-simplexml": "Required by the optional TextMate theme adapter"
     },
     "autoload": {
         "psr-4": {
@@ -60,6 +60,7 @@
         "sort-packages": true
     },
     "scripts": {
+        "coverage": "vendor/bin/phpunit --coverage-text",
         "cs": "vendor/bin/php-cs-fixer fix --dry-run --diff --sequential",
         "cs:fix": "vendor/bin/php-cs-fixer fix --sequential",
         "docs:capture": "npm --prefix tools/docs-showcase run capture",
@@ -76,7 +77,6 @@
             "@test"
         ],
         "sa": "vendor/bin/phpstan analyse --memory-limit=-1",
-        "test": "phpunit",
-        "coverage": "vendor/bin/phpunit --coverage-text"
+        "test": "phpunit"
     }
 }

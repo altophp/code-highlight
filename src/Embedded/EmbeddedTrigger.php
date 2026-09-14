@@ -129,7 +129,7 @@ final class EmbeddedTrigger
                 continue;
             }
 
-            $normalized[$key] = array_values($allowedValues);
+            $normalized[$key] = $allowedValues;
         }
 
         return $normalized;

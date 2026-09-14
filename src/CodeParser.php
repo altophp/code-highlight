@@ -51,13 +51,7 @@ final class CodeParser
         $this->embeddedRegistry = $embeddedRegistry ?? new EmbeddedLanguageRegistry();
 
         $languages ??= Languages::getDefaultLanguages();
-        foreach ($languages as $language) {
-            if (!$language instanceof LanguageInterface) {
-                throw new \InvalidArgumentException('All languages must implement LanguageInterface.');
-            }
-
-            $this->registerLanguage($language);
-        }
+        $this->registerLanguages($languages);
     }
 
     /**
@@ -108,6 +102,20 @@ final class CodeParser
         }
 
         return $this->languages[$identifier];
+    }
+
+    /**
+     * @param array<array-key, mixed> $languages
+     */
+    private function registerLanguages(array $languages): void
+    {
+        foreach ($languages as $language) {
+            if (!$language instanceof LanguageInterface) {
+                throw new \InvalidArgumentException('All languages must implement LanguageInterface.');
+            }
+
+            $this->registerLanguage($language);
+        }
     }
 
     private function parseWithLanguage(LanguageInterface $language, string $code): ParsedStream

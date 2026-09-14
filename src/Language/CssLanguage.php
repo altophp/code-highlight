@@ -371,13 +371,7 @@ class CssLanguage implements LanguageInterface
             return '';
         }
 
-        $last = end($tokens);
-
-        if (false === $last) {
-            return '';
-        }
-
-        return $last->getText();
+        return $tokens[count($tokens) - 1]->getText();
     }
 
     protected function isPseudoClass(string $text): bool

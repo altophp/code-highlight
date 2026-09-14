@@ -651,10 +651,7 @@ final class TypeScriptLanguage extends JavaScriptLanguage
             return true;
         }
 
-        $lastToken = end($tokens);
-        if (false === $lastToken) {
-            return true;
-        }
+        $lastToken = $tokens[count($tokens) - 1];
 
         if (Scope::Whitespace === $lastToken->getScope()) {
             for ($i = count($tokens) - 1; $i >= 0; --$i) {
