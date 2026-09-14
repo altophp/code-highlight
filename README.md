@@ -51,6 +51,27 @@ echo $highlighter->highlight($code, 'php');
 `<pre class="alto-highlight"><code>…</code></pre>`. Emit a theme stylesheet
 once per page, then reuse the highlighter for every code block.
 
+## Parse without rendering
+
+Use `CodeParser` when another component needs semantic tokens instead of HTML:
+
+```php
+use Alto\Code\Highlight\CodeParser;
+
+$stream = (new CodeParser())->parse(
+    '$total = array_sum($prices);',
+    'php',
+);
+
+foreach ($stream as $token) {
+    echo $token->text.' '.$token->scope->value.PHP_EOL;
+}
+```
+
+`parse()` returns a `ParsedStream` and preserves the caller's source exactly:
+`$stream->toString()` is the original code. It also resolves configured
+embedded languages, without requiring a theme or choosing an output format.
+
 ## What it covers
 
 - **27 languages:** the PHP web stack plus common programming, markup, data,
@@ -76,7 +97,7 @@ once per page, then reuse the highlighter for every code block.
 | [Create a theme](docs/theming/creating.md) | Implement `ThemeInterface` |
 | [Embedded languages](docs/languages/embedded.md) | HTML, SVG, Markdown, and Twig |
 | [Theme adapters](docs/theming/adapters.md) | Highlight.js, Prism, and TextMate |
-| [Public API](docs/api/index.md) | Supported entry points and extension contracts |
+| [Public API](docs/api/index.md) | Parsing, rendering, and extension contracts |
 | [Examples](docs/examples.md) | Compact examples and generated previews |
 
 The complete source examples are available in [`examples/languages/`](examples/languages/).

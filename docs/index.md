@@ -34,11 +34,14 @@ require a browser-side highlighter.
 
 ## Public API at a glance
 
-`Alto\Code\Highlight\Highlighter` is the main entry point:
+Use `CodeParser` when you need tokens, and `Highlighter` when you need HTML:
 
 ```php
+use Alto\Code\Highlight\CodeParser;
 use Alto\Code\Highlight\Highlighter;
 use Alto\Code\Highlight\Theme\AltoTheme;
+
+$tokens = (new CodeParser())->parse('$answer = 42;', 'php');
 
 $highlighter = new Highlighter(new AltoTheme());
 $html = $highlighter->highlight('<?php echo "Hello";', 'php');
