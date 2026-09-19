@@ -215,3 +215,16 @@ Also review the theme in a browser:
 
 The canonical samples in [Examples](../examples.md) provide stable inputs for
 visual review.
+
+## Extension contract
+
+Custom themes implement `ThemeInterface`. The `Scope` enum and its string
+values form the semantic vocabulary supplied to themes. The built-in theme
+classes and the Highlight.js, Prism, and TextMate adapters are supported
+public implementations.
+
+The interface requires `getName()`, `isDark()`, `getCssClasses()`, and
+`getStylesheet()`. Every current `Scope` needs a class mapping; the stylesheet
+then defines those classes for the generated HTML.
+
+See [Compatibility](../compatibility.md) for the semantic-versioning boundary.

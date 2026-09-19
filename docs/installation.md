@@ -91,7 +91,7 @@ the script that executes it. A framework bootstrap usually already includes
 
 ### A language is reported as unsupported
 
-Use an exact identifier from the [language reference](languages/index.md). The
+Use an exact identifier from the [language reference](languages.md). The
 highlighter normalizes case and surrounding whitespace, but does not provide
 aliases such as `js`, `ts`, `sh`, `yml`, or `cs`.
 

@@ -2,6 +2,9 @@
 
 This guide renders a complete HTML page with one highlighted PHP example.
 
+Save the script below as `highlight.php` beside `vendor`, then run
+`php highlight.php > highlight.html` and open the result in a browser.
+
 ## Render a code block
 
 ```php
@@ -48,6 +51,37 @@ The highlighter escapes source text before it creates HTML. Insert its return
 value as trusted generated markup; escaping that value again would display the
 `<pre>`, `<code>`, and `<span>` tags as text.
 
+The generated page contains a `<pre class="alto-highlight language-php">`
+block and the bundled Alto stylesheet. Compare its rendered colors with the
+checked-in [PHP previews](examples.md#php).
+
+## Parse without rendering
+
+Use `CodeParser` when another component needs semantic tokens instead of HTML:
+
+```php
+use Alto\Code\Highlight\CodeParser;
+
+$stream = (new CodeParser())->parse(
+    '$total = array_sum($prices);',
+    'php',
+);
+
+foreach ($stream as $token) {
+    echo $token->text.' '.$token->scope->value.PHP_EOL;
+}
+```
+
+`parse()` returns a `ParsedStream` and preserves the source exactly:
+`$stream->toString()` equals the original code. The parser also resolves
+configured embedded languages without requiring a theme or choosing an output
+format.
+
+`CodeParser` accepts an optional embedding registry and language list. It also
+exposes `registerLanguage()`, `getEmbeddedRegistry()`, and
+`setEmbeddingEnabled()` for the same parser configuration used by
+`Highlighter`.
+
 ## Construct a highlighter
 
 The concrete constructor accepts a theme and two optional custom registries:
@@ -83,7 +117,7 @@ interface HighlighterInterface
 ```
 
 - `$code` is the source text.
-- `$language` is an exact [registered identifier](languages/index.md).
+- `$language` is an exact [registered identifier](languages.md).
 - `$lineNumbers` adds a numbered span at the start of every line.
 - `$highlightLines` is a list of 1-indexed line numbers. Highlighted numbers
   receive the `alto-highlighted` class.
@@ -169,7 +203,7 @@ Do not emit it for every code block. The same `Highlighter` instance can render
 multiple blocks with the selected theme.
 
 To switch themes, create the requested theme and a corresponding highlighter
-before rendering the page. See the [built-in theme variants](theming/index.md).
+before rendering the page. See the [built-in theme variants](themes.md).
 
 ## Other public operations
 
@@ -179,4 +213,5 @@ before rendering the page. See the [built-in theme variants](theming/index.md).
 - `getEmbeddedRegistry()` to inspect the active embedding plans;
 - `setEmbeddingEnabled()` to toggle a configured host/target pair.
 
-See [Embedded languages](languages/embedded.md) for the embedding contracts.
+See [Embedded languages](languages/embedded.md) for the embedding contracts
+and [Compatibility](compatibility.md) for supported public boundaries.
