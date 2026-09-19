@@ -6,7 +6,7 @@ parser checks.
 
 Browse the complete source catalog on
 [GitHub](https://github.com/altophp/code-highlight/tree/main/examples/languages),
-or use the individual links in the [language reference](languages/index.md).
+or use the individual links in the [language reference](languages.md).
 
 ## Featured preview matrix
 
@@ -64,5 +64,5 @@ API.
 | ![CSS highlighted with GitHub Dark](assets/examples/github-dark/css.png) | ![CSS highlighted with GitHub Light](assets/examples/github-light/css.png) |
 
 The previews use the same source samples as the package tests. See
-[Creating a theme](theming/creating.md) to use them when reviewing a custom
+[Creating a theme](themes/creating.md) to use them when reviewing a custom
 theme.

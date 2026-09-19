@@ -90,15 +90,15 @@ embedded languages, without requiring a theme or choosing an output format.
 
 | Guide | Contents |
 |---|---|
-| [Documentation index](docs/index.md) | Choose the right guide |
+| [Installation](docs/installation.md) | Requirements, Composer, and verification |
 | [Getting started](docs/getting-started.md) | Complete rendering, line numbers, and errors |
-| [Languages](docs/languages/index.md) | Exact identifiers and language capabilities |
-| [Themes](docs/theming/index.md) | Built-in variants and visual examples |
-| [Create a theme](docs/theming/creating.md) | Implement `ThemeInterface` |
-| [Embedded languages](docs/languages/embedded.md) | HTML, SVG, Markdown, and Twig |
-| [Theme adapters](docs/theming/adapters.md) | Highlight.js, Prism, and TextMate |
-| [Public API](docs/api/index.md) | Parsing, rendering, and extension contracts |
-| [Examples](docs/examples.md) | Compact examples and generated previews |
+| [Examples](docs/examples.md) | Rendered language and theme previews |
+| [Languages](docs/languages.md) | Exact identifiers and language capabilities |
+| [Themes](docs/themes.md) | Built-in variants and visual examples |
+| [Compatibility](docs/compatibility.md) | Exceptions and supported public boundaries |
+
+The [documentation index](docs/index.md) lists these pages in site navigation
+order and links their focused guides.
 
 The complete source examples are available in [`examples/languages/`](examples/languages/).
 
@@ -148,9 +148,9 @@ $light = new GitHubTheme(dark: false);
 $dark = new GitHubTheme();
 ```
 
-Browse the [built-in theme matrix](docs/theming/index.md), learn how to
-[create a theme](docs/theming/creating.md), or reuse an existing stylesheet
-through a [theme adapter](docs/theming/adapters.md).
+Browse the [built-in theme matrix](docs/themes.md), learn how to
+[create a theme](docs/themes/creating.md), or reuse an existing stylesheet
+through a [theme adapter](docs/themes/adapters.md).
 
 ## Integrations
 

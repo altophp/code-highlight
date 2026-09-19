@@ -4,6 +4,11 @@ Alto Code Highlight includes seven theme families and twelve selectable
 variants. A theme maps semantic scopes to CSS classes and provides the
 stylesheet for those classes.
 
+Continue with:
+
+- [Adapters](themes/adapters.md) for local Highlight.js, Prism, or TextMate themes.
+- [Creating](themes/creating.md) to implement a theme from semantic scopes.
+
 ## Built-in variants
 
 | Family | Variant | Mode | Constructor |
@@ -61,25 +66,25 @@ The same PHP example rendered with the four primary documentation variants:
 
 | Alto Dark | Alto Light |
 |---|---|
-| ![PHP highlighted with Alto Dark](../assets/examples/alto-dark/php.png) | ![PHP highlighted with Alto Light](../assets/examples/alto-light/php.png) |
+| ![PHP highlighted with Alto Dark](assets/examples/alto-dark/php.png) | ![PHP highlighted with Alto Light](assets/examples/alto-light/php.png) |
 
 | GitHub Dark | GitHub Light |
 |---|---|
-| ![PHP highlighted with GitHub Dark](../assets/examples/github-dark/php.png) | ![PHP highlighted with GitHub Light](../assets/examples/github-light/php.png) |
+| ![PHP highlighted with GitHub Dark](assets/examples/github-dark/php.png) | ![PHP highlighted with GitHub Light](assets/examples/github-light/php.png) |
 
 The full PHP, Twig, HTML, JavaScript, and CSS matrix is available in
-[Examples](../examples.md).
+[Examples](examples.md).
 
 ## Line numbers and selected lines
 
 The highlighter emits structural `alto-line-number` and `alto-highlighted`
 classes when those options are enabled. Built-in theme stylesheets do not
 define their layout. Add application CSS for those classes as shown in
-[Getting started](../getting-started.md#line-numbers-and-selected-lines).
+[Getting started](getting-started.md#line-numbers-and-selected-lines).
 
 ## Other theme sources
 
-- Use [theme adapters](adapters.md) for local Highlight.js, Prism, or
+- Use [theme adapters](themes/adapters.md) for local Highlight.js, Prism, or
   TextMate theme files.
-- Follow [Creating a theme](creating.md) to implement
+- Follow [Creating a theme](themes/creating.md) to implement
   `ThemeInterface` directly.

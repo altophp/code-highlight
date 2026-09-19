@@ -1,54 +1,32 @@
-# Alto Code Highlight documentation
+# Alto Code Highlight
 
-Alto Code Highlight is a server-side syntax highlighter for PHP 8.4 and later.
-It parses source code in PHP and returns escaped, theme-ready HTML. It does not
-require a browser-side highlighter.
-
-## Documentation
-
-- [Installation](installation.md) covers requirements, Composer, and a smoke
-  test.
-- [Getting started](getting-started.md) goes from source code to a complete HTML
-  page.
-- [Examples](examples.md) presents canonical examples and generated visual
-  previews.
-
-## Languages
-
-- [Languages](languages/index.md) lists every accepted language identifier.
-- [Embedded languages](languages/embedded.md) explains HTML, SVG, Markdown, and
-  Twig delegation.
-
-## Theming
-
-- [Themes](theming/index.md) lists all built-in variants and constructors.
-- [Theme adapters](theming/adapters.md) shows how to reuse local Highlight.js,
-  Prism, or TextMate theme files.
-- [Creating a theme](theming/creating.md) implements `ThemeInterface` from
-  semantic scopes to CSS.
-
-## API
-
-- [Public API](api/index.md) defines the supported entry points, extension
-  contracts, and compatibility boundary.
-
-## Public API at a glance
-
-Use `CodeParser` when you need tokens, and `Highlighter` when you need HTML:
+Alto Code Highlight parses source code and renders escaped, theme-ready HTML
+entirely in PHP. Semantic scopes distinguish language concepts across 27
+built-in languages, including embedded CSS, JavaScript, PHP, and markup.
 
 ```php
-use Alto\Code\Highlight\CodeParser;
 use Alto\Code\Highlight\Highlighter;
 use Alto\Code\Highlight\Theme\AltoTheme;
 
-$tokens = (new CodeParser())->parse('$answer = 42;', 'php');
-
 $highlighter = new Highlighter(new AltoTheme());
 $html = $highlighter->highlight('<?php echo "Hello";', 'php');
-$css = $highlighter->getTheme()->getStylesheet();
 ```
 
-The returned HTML is a `<pre class="alto-highlight">` element containing a
-`<code>` element and semantic `<span>` elements. Source text is HTML-escaped
-during rendering. Add the selected theme's stylesheet once to the page, then
-insert the returned HTML without escaping it again.
+The result is escaped semantic HTML ready for the selected theme stylesheet:
+
+```html
+<pre class="alto-highlight language-php"><code class="language-php"><span class="alto-punctuation">&lt;?php </span><span class="alto-keyword">echo</span> <span class="alto-string">&quot;Hello&quot;</span><span class="alto-punctuation">;</span></code></pre>
+```
+
+The package needs no browser-side highlighter, Node.js process, external
+service, or third-party PHP runtime package. It also adapts Highlight.js,
+Prism, and TextMate themes without handing parsing to those tools.
+
+## Documentation
+
+- [Installation](installation.md)
+- [Getting started](getting-started.md)
+- [Examples](examples.md)
+- [Languages](languages.md)
+- [Themes](themes.md)
+- [Compatibility](compatibility.md)

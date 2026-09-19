@@ -7,6 +7,9 @@ Identifiers are case-insensitive after trimming, but there are no short
 aliases. Use `javascript`, not `js`; `typescript`, not `ts`; `bash`, not `sh`;
 `yaml`, not `yml`; and `csharp`, not `cs`.
 
+Read [Embedded languages](languages/embedded.md) for HTML, SVG, Markdown, and
+Twig delegation.
+
 ## Default registry
 
 | Language | Identifier | Category | Typical extension | Parsing focus | Example |
@@ -40,7 +43,7 @@ aliases. Use `javascript`, not `js`; `typescript`, not `ts`; `bash`, not `sh`;
 | YAML | `yaml` | Data | `.yaml` | Mappings, sequences, anchors, aliases, values, and comments | [Source](https://github.com/altophp/code-highlight/blob/main/examples/languages/yaml.yaml) |
 
 The source files above are the canonical compact documentation examples.
-See [Examples](../examples.md) for generated previews.
+See [Examples](examples.md) for generated previews.
 
 ## PHP snippets without an opening tag
 
@@ -91,4 +94,16 @@ $highlighter->registerLanguage(new MyLanguage());
 
 Registering an existing identifier replaces that parser on the highlighter
 instance. Theme authors style the generic semantic scopes emitted by parsers;
-see [Creating a theme](../theming/creating.md).
+see [Creating a theme](themes/creating.md).
+
+## Extension contract
+
+Custom parsers implement `LanguageInterface` and return a `ParsedStream` made
+of `ParsedToken` values. `StreamBuilder`, `TokenType`, and `Scope` are
+supported building blocks. `Languages::getDefaultLanguages()` returns the
+built-in registry.
+
+Embedded parsers use `EmbeddedLanguageCapable`, `EmbeddedLanguageContext`, and
+the public types under `Alto\Code\Highlight\Embedded`. Their documented
+constructors and methods follow the same compatibility promise described in
+[Compatibility](compatibility.md).

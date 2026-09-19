@@ -112,5 +112,5 @@ Adapters translate style classes only:
 - source escaping and output structure remain Alto's responsibility;
 - line numbers still use `alto-line-number` and `alto-highlighted`.
 
-See [Languages](../languages/index.md), [Getting started](../getting-started.md),
+See [Languages](../languages.md), [Getting started](../getting-started.md),
 and [Creating a theme](creating.md) for those separate contracts.
