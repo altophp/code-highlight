@@ -4,14 +4,18 @@
 /.github                     export-ignore
 /.gitignore                  export-ignore
 /.php-cs-fixer.dist.php      export-ignore
-/bin                         export-ignore
+/composer.lock               export-ignore
 /docs                        export-ignore
-/examples                    export-ignore
 /phpstan.neon.dist           export-ignore
 /phpunit.xml.dist            export-ignore
 /tests                       export-ignore
-/tools                       export-ignore
 
 /docs/**                     linguist-documentation
+/tests/Fixtures/**           -linguist-detectable
+/tests/fixtures/**           -linguist-detectable
+
+/bin                         export-ignore
+/examples                    export-ignore
+/tools                       export-ignore
 /examples/**                 linguist-documentation
 /tests/Language/**           -linguist-detectable
