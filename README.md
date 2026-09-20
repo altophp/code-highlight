@@ -174,18 +174,21 @@ Before submitting code, run:
 composer qa
 ```
 
-Language parsers use fixtures under `tests/Language/`. Public showcase examples
-live separately under `examples/languages/`; they are short documentation
-samples rather than exhaustive parser tests.
+Changes to public behavior should include tests and documentation.
+
+Language parser fixtures live under `tests/Language/`. Public showcase
+examples under `examples/languages/` are documentation samples rather than
+exhaustive parser tests.
 
 ## Support
 
-ALTO Code Highlight is open source. You can support its continued development through
+ALTO Code Highlight is open source and independently maintained by
+[Simon André](https://smnandre.dev). If it is useful to your work, you can
+support its continued development through
 [GitHub Sponsors](https://github.com/sponsors/smnandre).
 
-Sharing this package with others or
-[starring it on GitHub](https://github.com/altophp/code-highlight) is also much
-appreciated.
+Sharing the package or
+[starring it on GitHub](https://github.com/altophp/code-highlight) also helps.
 
 ## License
 
