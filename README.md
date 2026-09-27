@@ -1,13 +1,19 @@
-# ALTO Code Highlight
+<h1 align="center">
+  <a href="https://altophp.com/code-highlight">
+    <img src=".github/alto-code-highlight.svg" alt="ALTO Code Highlight">
+  </a>
+</h1>
 
 Server-side syntax highlighting for PHP applications, with semantic scopes,
 embedded languages, and no third-party PHP package dependencies at runtime.
 
-&nbsp; ![PHP Version](https://img.shields.io/badge/PHP-8.4%2B-00B7FF?logoColor=00B7FF&labelColor=050608)
-&nbsp; ![CI](https://img.shields.io/github/actions/workflow/status/altophp/code-highlight/CI.yml?branch=main&label=Tests&labelColor=050608&color=00B7FF)
-&nbsp; [![Packagist](https://img.shields.io/packagist/v/alto/code-highlight?label=Packagist&labelColor=050608&color=00B7FF)](https://packagist.org/packages/alto/code-highlight)
-&nbsp; ![License](https://img.shields.io/github/license/altophp/code-highlight?label=License&labelColor=050608&color=00B7FF)
-&nbsp; [![GitHub Sponsors](https://img.shields.io/github/sponsors/smnandre?logo=githubsponsors&logoColor=00B7FF&label=%20Sponsor&labelColor=050608&color=00B7FF)](https://github.com/sponsors/smnandre)
+<p align="center">
+  <img alt="PHP Version" src="https://img.shields.io/badge/PHP-8.4%2B-00B7FF?logoColor=00B7FF&amp;labelColor=050608">
+  <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/altophp/code-highlight/CI.yml?branch=main&amp;label=Tests&amp;labelColor=050608&amp;color=00B7FF">
+  <a href="https://packagist.org/packages/alto/code-highlight"><img alt="Packagist" src="https://img.shields.io/packagist/v/alto/code-highlight?label=Packagist&amp;labelColor=050608&amp;color=00B7FF"></a>
+  <img alt="License" src="https://img.shields.io/github/license/altophp/code-highlight?label=License&amp;labelColor=050608&amp;color=00B7FF">
+  <a href="https://github.com/sponsors/smnandre"><img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/smnandre?logo=githubsponsors&amp;logoColor=00B7FF&amp;label=%20Sponsor&amp;labelColor=050608&amp;color=00B7FF"></a>
+</p>
 
 ![PHP highlighted with the Alto Dark theme](docs/assets/examples/alto-dark/php.png)
 
@@ -15,21 +21,6 @@ Core highlighting runs entirely in PHP. It needs no browser runtime, Node.js
 process, or external service. Its parsers assign semantic scopes, so themes can
 distinguish a function definition from a call or a type definition from a
 reference.
-
-## Installation
-
-Install ALTO Code Highlight with Composer:
-
-```bash
-composer require alto/code-highlight
-```
-
-ALTO Code Highlight requires PHP 8.4 or later, Mbstring, and Tokenizer.
-Tokenizer is included with PHP; Mbstring is available in most PHP distributions
-but must be enabled.
-
-See the [installation guide](docs/installation.md) for verification and
-troubleshooting.
 
 ## Quick Start
 
@@ -50,6 +41,21 @@ echo $highlighter->highlight($code, 'php');
 `highlight()` returns escaped HTML inside
 `<pre class="alto-highlight"><code>…</code></pre>`. Emit a theme stylesheet
 once per page, then reuse the highlighter for every code block.
+
+## Installation
+
+Install ALTO Code Highlight with Composer:
+
+```bash
+composer require alto/code-highlight
+```
+
+ALTO Code Highlight requires PHP 8.4 or later, Mbstring, and Tokenizer.
+Tokenizer is included with PHP; Mbstring is available in most PHP distributions
+but must be enabled.
+
+See the [installation guide](docs/installation.md) for verification and
+troubleshooting.
 
 ## Parse without rendering
 
